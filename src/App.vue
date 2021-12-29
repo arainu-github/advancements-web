@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="m-1">
-      <b-tabs pills content-class="tab-content">
+      <b-tabs pills content-class="tab-content" fill>
         <b-card class="m-1">
           <b-card-title id="title">タップまたはマウスホバーで詳細情報が見れます。</b-card-title>
           <b-card-text id="description"></b-card-text>
@@ -36,6 +36,6 @@ export default {
   flex-direction: column;
   padding-bottom: 5px;
   max-height: 70px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 </style>
