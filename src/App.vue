@@ -22,7 +22,7 @@ export default {
     }
   },
   beforeMount: function (){
-    axios.get("https://asia-northeast1-swift-arcadia-332108.cloudfunctions.net/get_advancements")
+    axios.get("https://data.arainu.world/api/get_advancements")
     .then(response => {
       console.log(response.data)
       this.$data.content = response.data
