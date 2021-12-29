@@ -22,7 +22,7 @@ export default {
     }
   },
   beforeMount: function (){
-    axios.get("https://data.arainu.world/api/get_advancements")
+    axios.get("https://data.arainu.world/api/advancements/")
     .then(response => {
       console.log(response.data)
       this.$data.content = response.data
