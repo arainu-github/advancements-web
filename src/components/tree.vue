@@ -177,6 +177,6 @@ export default {
 <style scoped>
 .tree {
   overflow: auto;
-  max-height: calc(100vh - 180px);
+  max-height: calc(100vh - 185px);
 }
 </style>
