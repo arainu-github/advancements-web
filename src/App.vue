@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="m-1">
       <b-tabs pills content-class="tab-content">
-        <b-card>
+        <b-card class="m-1">
           <b-card-title id="title">タップまたはマウスホバーで詳細情報が見れます。</b-card-title>
           <b-card-text id="description"></b-card-text>
         </b-card>
@@ -32,4 +32,10 @@ export default {
 </script>
 
 <style>
+.nav {
+  flex-direction: column;
+  padding-bottom: 5px;
+  max-height: 70px;
+  overflow-x: scroll;
+}
 </style>
