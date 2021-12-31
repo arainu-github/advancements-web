@@ -7,7 +7,7 @@ import * as d3 from 'd3'
 
 export default {
   name: "tree",
-  props: ["content","id"],
+  props: ["content","id","player"],
   mounted: function(){
 // 描画する四角（ノード）のサイズ
     const rectSize = {
@@ -142,7 +142,20 @@ export default {
         .append("image")
         .attr("width", `48px`)
         .attr("height", `48px`)
-        .attr("xlink:href",(d) => "https://data.arainu.world/images/"+d.data.type+".png")
+        .attr("xlink:href",(d) => {
+          if(this.player.length === 0){
+            return "https://data.arainu.world/images/" + d.data.type + ".png";
+          }
+          let criteria = this.player[this.player.map(i => i[1]).indexOf(d.data.id)][3].split(",")
+          if(criteria[0] === ""){
+            criteria = []
+          }
+          if(criteria.length === 0){
+            return "https://data.arainu.world/images/"+d.data.type+"_complete.png";
+          }else {
+            return "https://data.arainu.world/images/" + d.data.type + ".png";
+          }
+        })
         .on("mouseover", function(_, d) {
           title.html(d.data.name)
           description.html(d.data.description)
@@ -162,14 +175,6 @@ export default {
           title.html(d.data.name)
           description.html(d.data.description)
         });
-        // .on("mousemove", function(d) {
-        //   tooltip
-        //       .style("top", (d.clientY - 20) + "px")
-        //       .style("left", (d.clientX + 10) + "px");
-        // })
-        // .on("mouseout", function() {
-        //   tooltip.style("visibility", "hidden");
-        // });
   }
 }
 </script>

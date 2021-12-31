@@ -5,7 +5,7 @@
           <b-card-title id="title">タップまたはマウスホバーで詳細情報が見れます。</b-card-title>
           <b-card-text id="description"></b-card-text>
         </b-card>
-        <b-tab :title="i.name" v-for="(i,j) in content" :key="i.id"><tree :content="i" :id="j"></tree></b-tab>
+        <b-tab :title="i.name" v-for="(i,j) in content" :key="i.id"><tree :content="i" :id="j" :player="player"></tree></b-tab>
       </b-tabs>
   </div>
 </template>
@@ -18,15 +18,24 @@ export default {
   components: {Tree},
   data() {
     return {
-      content: {}
+      content: [],
+      player: []
     }
   },
   beforeMount: function (){
     axios.get("https://data.arainu.world/api/advancements/")
     .then(response => {
-      console.log(response.data)
       this.$data.content = response.data
     })
+    const urlParams = new URLSearchParams(window.location.search);
+    const uuid = urlParams.get('uuid');
+    if(uuid !== null){
+      axios.get("https://data.arainu.world/api/advancements/player?uuid="+uuid)
+          .then(response => {
+            this.$data.player = response.data
+          })
+    }
+    console.log(uuid);
   }
 }
 </script>
