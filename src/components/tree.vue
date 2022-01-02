@@ -137,6 +137,20 @@ export default {
 //         .attr("fill", "#fff")
 //         .attr("stroke", "black");
 
+    let updateInfomation = (data) => {
+      title.html(data.name)
+      description.html(data.description)
+      const playerData = this.player[this.player.map(i => i[1]).indexOf(data.id)];
+      if (playerData[4]) {
+        this.$emit('updateProgress', 1,1);
+      } else {
+        let awarded = playerData[3].split(",")
+        if (awarded[0] === "") awarded = [];
+        let remaining = playerData[2].split(",")
+        if (remaining[0] === "") remaining = [];
+        this.$emit('updateProgress', remaining.length,remaining.length + awarded.length);
+      }
+    }
 // テキスト
     node
         .append("image")
@@ -146,19 +160,14 @@ export default {
           if(this.player.length === 0){
             return "https://data.arainu.world/images/" + d.data.type + ".png";
           }
-          let criteria = this.player[this.player.map(i => i[1]).indexOf(d.data.id)][3].split(",")
-          if(criteria[0] === ""){
-            criteria = []
-          }
-          if(criteria.length === 0){
+          if(this.player[this.player.map(i => i[1]).indexOf(d.data.id)][4]){
             return "https://data.arainu.world/images/"+d.data.type+"_complete.png";
           }else {
             return "https://data.arainu.world/images/" + d.data.type + ".png";
           }
         })
-        .on("mouseover", function(_, d) {
-          title.html(d.data.name)
-          description.html(d.data.description)
+        .on("mouseover", (_, d) => {
+          updateInfomation(d.data);
         });
     node
         .append("image")
@@ -168,12 +177,10 @@ export default {
         .attr("height", `32px`)
         .attr("xlink:href",(d) => "https://data.arainu.world/images/itemimages/"+d.data.icon+".png")
         .on("mouseover", function(_, d) {
-          title.html(d.data.name)
-          description.html(d.data.description)
+          updateInfomation(d.data);
         })
         .on("click", function(_, d) {
-          title.html(d.data.name)
-          description.html(d.data.description)
+          updateInfomation(d.data);
         });
   }
 }
@@ -182,6 +189,6 @@ export default {
 <style scoped>
 .tree {
   overflow: auto;
-  max-height: calc(100vh - 185px);
+  max-height: calc(100vh - 230px);
 }
 </style>
