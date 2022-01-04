@@ -40,7 +40,6 @@ export default {
             this.$data.player = response.data
           })
     }
-    console.log(uuid);
   },
   methods: {
     updateProgress(percent,max){
